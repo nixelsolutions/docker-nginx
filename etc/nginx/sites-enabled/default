@@ -1,0 +1,37 @@
+sten HTTP_PORT;
+
+	root HTTP_DOCUMENTROOT;
+	index index.html index.htm;
+
+	server_name localhost;
+
+	location ~ /\. {
+		deny all;
+		log_not_found off;
+		access_log off;
+	}
+
+        location /healthcheck.txt {
+                access_log off;
+        }
+
+        location = /favicon.ico {
+                log_not_found off;
+                access_log off;
+        }
+
+        location = /robots.txt {
+                allow all;
+                log_not_found off;
+                access_log off;
+        }
+
+	location ~* \.(js|css|png|jpg|jpeg|gif|ico)(\?ver=[0-9.]+)?$ {
+		expires 1w;
+
+	}
+
+	location ~* ^.+\.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|gif|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+		expires 1w;
+	}
+}
